@@ -1,0 +1,55 @@
+# Secrets and local environment
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Java
+target/
+*.class
+*.log
+
+# Frontend
+node_modules/
+dist/
+build/
+coverage/
+.next/
+.vite/
+*.tsbuildinfo
+
+# Python
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+*.egg-info/
+
+# Editors and operating systems
+.idea/
+.vscode/
+*.iml
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Local data and uploaded documents
+/uploads/
+/storage/
+/data/
+/backend/uploads/
+/backend/storage/
+/ai-service/uploads/
+/ai-service/storage/
+
+# Temporary files
+*.tmp
+*.bak
