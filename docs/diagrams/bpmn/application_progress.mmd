@@ -1,0 +1,102 @@
+flowchart TB
+
+    subgraph ADMIN["Administrator"]
+        direction TB
+        START(("Start"))
+        CONFIG["Configure competition, nominations,<br/>criteria, deadlines and eligibility years"]
+        ASSIGN["Assign experts to applications<br/>and specific criteria"]
+        PUBLISH["Record the commission decision<br/>and publish results"]
+        FINISH(("End"))
+    end
+
+    subgraph FACULTY["Faculty Member"]
+        direction TB
+        DRAFT["Create application<br/>and select a nomination"]
+        UPLOAD["Upload supporting documents"]
+        SUBMIT["Submit application"]
+        CORRECT["Correct missing or invalid information"]
+        RESPOND["Provide clarification<br/>or upload a new document version"]
+    end
+
+    subgraph SYSTEM["Platform"]
+        direction TB
+        VALIDATE["Check required fields, files<br/>and submission deadline"]
+        VALID{"Submission valid?"}
+        STORE["Save submitted application<br/>and document versions"]
+
+        AI_ENABLED{"AI assistance enabled?"}
+        AI_EXTRACT["Extract achievement year<br/>and supporting text from documents"]
+        AI_READY{"Extraction successful<br/>and year unambiguous?"}
+        CHECK_YEARS["Check achievement year against<br/>the configured five-year window<br/>and confirmed AITU employment years"]
+        AI_RESULT["Show separate results for both checks:<br/>Meets / Does not meet / Insufficient information"]
+        MANUAL["Mark document for manual review"]
+
+        VERSION["Save clarification<br/>and preserve previous document versions"]
+        COMPLETE{"All required expert<br/>evaluations completed?"}
+        PENDING["Keep application under review<br/>until remaining evaluations are completed"]
+        SCORE["Calculate official score<br/>from confirmed expert evaluations"]
+        REPORT["Generate individual report<br/>and update nomination ranking"]
+    end
+
+    subgraph EXPERT["Expert"]
+        direction TB
+        REVIEW["Review assigned criteria and evidence<br/>and confirm or correct AI findings"]
+        CLARIFY{"Clarification required?"}
+        REQUEST["Request clarification"]
+        EVALUATE["Enter scores within criterion limits<br/>and complete assigned evaluation"]
+    end
+
+    subgraph COMMISSION["Competition Commission — Outside the MVP Platform"]
+        direction TB
+        DECISION["Review reports and rankings<br/>and decide competition outcomes"]
+    end
+
+    START --> CONFIG
+    CONFIG --> DRAFT
+    DRAFT --> UPLOAD
+    UPLOAD --> SUBMIT
+    SUBMIT --> VALIDATE
+    VALIDATE --> VALID
+
+    VALID -- "No" --> CORRECT
+    CORRECT --> SUBMIT
+    VALID -- "Yes" --> STORE
+    STORE --> ASSIGN
+    ASSIGN --> AI_ENABLED
+
+    AI_ENABLED -- "Yes" --> AI_EXTRACT
+    AI_ENABLED -- "No" --> MANUAL
+    AI_EXTRACT --> AI_READY
+    AI_READY -- "Yes" --> CHECK_YEARS
+    AI_READY -- "No" --> MANUAL
+    CHECK_YEARS --> AI_RESULT
+
+    AI_RESULT --> REVIEW
+    MANUAL --> REVIEW
+    REVIEW --> CLARIFY
+
+    CLARIFY -- "Yes" --> REQUEST
+    REQUEST --> RESPOND
+    RESPOND --> VERSION
+    VERSION --> AI_ENABLED
+
+    CLARIFY -- "No" --> EVALUATE
+    EVALUATE --> COMPLETE
+    COMPLETE -- "No" --> PENDING
+    PENDING -- "Remaining assigned evaluations" --> REVIEW
+    COMPLETE -- "Yes" --> SCORE
+
+    SCORE --> REPORT
+    REPORT --> DECISION
+    DECISION --> PUBLISH
+    PUBLISH --> FINISH
+
+    classDef event fill:#dbeafe,stroke:#2563eb,stroke-width:2px;
+    classDef gateway fill:#fef3c7,stroke:#d97706,stroke-width:2px;
+    classDef automated fill:#e0f2fe,stroke:#0284c7;
+    classDef human fill:#f0fdf4,stroke:#16a34a;
+
+    class START,FINISH event;
+    class VALID,AI_ENABLED,AI_READY,CLARIFY,COMPLETE gateway;
+    class VALIDATE,STORE,AI_EXTRACT,CHECK_YEARS,AI_RESULT,MANUAL,VERSION,PENDING,SCORE,REPORT automated;
+    class CONFIG,ASSIGN,PUBLISH,DRAFT,UPLOAD,SUBMIT,CORRECT,RESPOND,REVIEW,REQUEST,EVALUATE,DECISION human;
