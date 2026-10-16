@@ -1,0 +1,121 @@
+flowchart TB
+
+    subgraph AUTH["1. Вход в платформу"]
+        direction LR
+        LOGIN["Страница входа<br/>Кнопка «Войти через Microsoft»"]
+        MICROSOFT["Вход через корпоративный<br/>Microsoft-аккаунт AITU"]
+        ACCESS{"Аккаунт подтверждён<br/>и доступ разрешён?"}
+        ROLES["Открыть личный кабинет<br/>с доступными ролями"]
+        DENIED["Показать причину отказа<br/>и возможность повторить вход"]
+
+        LOGIN --> MICROSOFT
+        MICROSOFT --> ACCESS
+        ACCESS -- "Да" --> ROLES
+        ACCESS -- "Нет" --> DENIED
+        DENIED --> LOGIN
+    end
+
+    subgraph TEACHER["2. Преподаватель — мои заявки"]
+        direction LR
+        T_HOME["Личный кабинет<br/>Доступные конкурсы и мои заявки"]
+        T_FORM["Создать или редактировать черновик<br/>Выбрать номинацию и заполнить данные"]
+        T_FILES["Загрузить документы<br/>по критериям конкурса"]
+        T_SUBMIT["Отправить заявку"]
+        T_STATUS["Просмотреть статус заявки<br/>и запросы на уточнение"]
+        T_UPDATE["Ответить на запрос эксперта<br/>Добавить пояснение или новую версию файла"]
+        T_RESULT["Просмотреть опубликованный результат<br/>и скачать индивидуальный отчёт"]
+
+        T_HOME --> T_FORM
+        T_FORM --> T_FILES
+        T_FILES --> T_SUBMIT
+        T_HOME --> T_STATUS
+        T_STATUS -- "Есть запрос" --> T_UPDATE
+        T_STATUS -- "Результаты опубликованы" --> T_RESULT
+    end
+
+    subgraph EXPERT["3. Эксперт — назначенные заявки"]
+        direction LR
+        E_HOME["Личный кабинет<br/>Назначенные заявки и сроки"]
+        E_REVIEW["Открыть заявку<br/>Просмотреть назначенные критерии,<br/>документы и результаты проверки ИИ"]
+        E_ACTION{"Нужны пояснения<br/>или дополнительные документы?"}
+        E_REQUEST["Отправить запрос<br/>на уточнение"]
+        E_SCORE["Выставить баллы по критериям<br/>и добавить обоснование"]
+        E_FINISH["Завершить оценивание<br/>Зафиксировать оценки"]
+
+        E_HOME --> E_REVIEW
+        E_REVIEW --> E_ACTION
+        E_ACTION -- "Да" --> E_REQUEST
+        E_ACTION -- "Нет" --> E_SCORE
+        E_SCORE --> E_FINISH
+    end
+
+    subgraph ADMIN["4. Администратор — управление конкурсом"]
+        direction LR
+        A_HOME["Панель администратора"]
+        A_CONFIG["Настроить конкурс<br/>Номинации, критерии, сроки<br/>и допустимые годы достижений"]
+        A_ACCESS["Управлять доступом<br/>и ролями пользователей"]
+        A_ASSIGN["Просмотреть поступившие заявки<br/>Назначить экспертов и критерии"]
+        A_MONITOR["Контролировать ход оценивания<br/>Просматривать отчёты и рейтинги"]
+        A_PUBLISH["Внести решение комиссии<br/>и опубликовать результаты"]
+
+        A_HOME --> A_CONFIG
+        A_HOME --> A_ACCESS
+        A_HOME --> A_ASSIGN
+        A_HOME --> A_MONITOR
+        A_MONITOR --> A_PUBLISH
+    end
+
+    subgraph SYSTEM["5. Система — автоматическая обработка"]
+        direction LR
+        S_SUBMIT["Проверить заполнение и срок подачи<br/>При ошибках показать подсказки<br/>При успехе зарегистрировать заявку"]
+        S_FILES["Сохранить файлы<br/>и историю версий"]
+        S_AI["ИИ извлекает год достижения<br/>и подтверждающий фрагмент документа"]
+        S_RULES["Проверить по годам:<br/>1. Достижение входит в пятилетний период<br/>2. Достижение относится к работе в AITU"]
+        S_CHECK["Показать результат каждого условия:<br/>Соответствует / Не соответствует / Недостаточно данных<br/>При сбое ИИ — ручная проверка"]
+        S_TOTAL["После завершения всех обязательных оценок:<br/>рассчитать баллы, сформировать отчёт<br/>и обновить рейтинг"]
+
+        S_FILES -- "Если ИИ включён" --> S_AI
+        S_AI --> S_RULES
+        S_RULES --> S_CHECK
+        S_AI -- "Ошибка обработки" --> S_CHECK
+    end
+
+    ROLES -- "Роль преподавателя" --> T_HOME
+    ROLES -- "Роль эксперта" --> E_HOME
+    ROLES -- "Роль администратора" --> A_HOME
+
+    T_FILES -. "Документы" .-> S_FILES
+    T_SUBMIT -. "Проверка и регистрация" .-> S_SUBMIT
+    S_SUBMIT -. "Статус или ошибки" .-> T_STATUS
+    S_SUBMIT -. "Зарегистрированная заявка" .-> A_ASSIGN
+
+    A_ASSIGN -. "Назначение" .-> E_HOME
+    S_CHECK -. "Подсказки для эксперта" .-> E_REVIEW
+
+    E_REQUEST -. "Уведомление" .-> T_STATUS
+    T_UPDATE -. "Новая версия документа" .-> S_FILES
+    T_UPDATE -. "Ответ преподавателя" .-> E_REVIEW
+
+    E_FINISH -. "Подтверждённые оценки" .-> S_TOTAL
+    S_TOTAL -. "Отчёты и рейтинг" .-> A_MONITOR
+    A_PUBLISH -. "Опубликованный результат" .-> T_RESULT
+
+    classDef auth fill:#eef2ff,stroke:#6366f1,color:#1e1b4b;
+    classDef teacher fill:#eff6ff,stroke:#3b82f6,color:#172554;
+    classDef expert fill:#f0fdf4,stroke:#22c55e,color:#14532d;
+    classDef admin fill:#fff7ed,stroke:#f97316,color:#7c2d12;
+    classDef system fill:#f8fafc,stroke:#64748b,color:#0f172a;
+    classDef decision fill:#fef9c3,stroke:#ca8a04,color:#713f12;
+
+    class LOGIN,MICROSOFT,ROLES,DENIED auth;
+    class T_HOME,T_FORM,T_FILES,T_SUBMIT,T_STATUS,T_UPDATE,T_RESULT teacher;
+    class E_HOME,E_REVIEW,E_REQUEST,E_SCORE,E_FINISH expert;
+    class A_HOME,A_CONFIG,A_ACCESS,A_ASSIGN,A_MONITOR,A_PUBLISH admin;
+    class S_SUBMIT,S_FILES,S_AI,S_RULES,S_CHECK,S_TOTAL system;
+    class ACCESS,E_ACTION decision;
+
+    style AUTH fill:#fafaff,stroke:#a5b4fc
+    style TEACHER fill:#f8fbff,stroke:#93c5fd
+    style EXPERT fill:#f7fff9,stroke:#86efac
+    style ADMIN fill:#fffbf5,stroke:#fdba74
+    style SYSTEM fill:#f8fafc,stroke:#cbd5e1
