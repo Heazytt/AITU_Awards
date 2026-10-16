@@ -1,102 +1,121 @@
 flowchart TB
 
-    subgraph ADMIN["Administrator"]
-        direction TB
-        START(("Start"))
-        CONFIG["Configure competition, nominations,<br/>criteria, deadlines and eligibility years"]
-        ASSIGN["Assign experts to applications<br/>and specific criteria"]
-        PUBLISH["Record the commission decision<br/>and publish results"]
-        FINISH(("End"))
+    subgraph AUTH["1. Platform Sign-In"]
+        direction LR
+        LOGIN["Sign-in page<br/>Sign in with Microsoft"]
+        MICROSOFT["Sign in with a corporate<br/>AITU Microsoft account"]
+        ACCESS{"Account verified<br/>and access allowed?"}
+        ROLES["Open the dashboard<br/>with assigned roles"]
+        DENIED["Show the reason for denied access<br/>and allow another sign-in attempt"]
+
+        LOGIN --> MICROSOFT
+        MICROSOFT --> ACCESS
+        ACCESS -- "Yes" --> ROLES
+        ACCESS -- "No" --> DENIED
+        DENIED --> LOGIN
     end
 
-    subgraph FACULTY["Faculty Member"]
-        direction TB
-        DRAFT["Create application<br/>and select a nomination"]
-        UPLOAD["Upload supporting documents"]
-        SUBMIT["Submit application"]
-        CORRECT["Correct missing or invalid information"]
-        RESPOND["Provide clarification<br/>or upload a new document version"]
+    subgraph TEACHER["2. Faculty Member — My Applications"]
+        direction LR
+        T_HOME["Dashboard<br/>Available competitions and my applications"]
+        T_FORM["Create or edit a draft<br/>Select a nomination and enter details"]
+        T_FILES["Upload supporting documents<br/>for competition criteria"]
+        T_SUBMIT["Submit application"]
+        T_STATUS["View application status<br/>and clarification requests"]
+        T_UPDATE["Respond to an expert request<br/>Add clarification or a new file version"]
+        T_RESULT["View published results<br/>and download the individual report"]
+
+        T_HOME --> T_FORM
+        T_FORM --> T_FILES
+        T_FILES --> T_SUBMIT
+        T_HOME --> T_STATUS
+        T_STATUS -- "Request received" --> T_UPDATE
+        T_STATUS -- "Results published" --> T_RESULT
     end
 
-    subgraph SYSTEM["Platform"]
-        direction TB
-        VALIDATE["Check required fields, files<br/>and submission deadline"]
-        VALID{"Submission valid?"}
-        STORE["Save submitted application<br/>and document versions"]
+    subgraph EXPERT["3. Expert — Assigned Applications"]
+        direction LR
+        E_HOME["Dashboard<br/>Assigned applications and deadlines"]
+        E_REVIEW["Open application<br/>Review assigned criteria,<br/>documents and AI findings"]
+        E_ACTION{"Are clarification or additional<br/>documents required?"}
+        E_REQUEST["Send a clarification request"]
+        E_SCORE["Score criteria<br/>and provide justification"]
+        E_FINISH["Complete evaluation<br/>and lock submitted scores"]
 
-        AI_ENABLED{"AI assistance enabled?"}
-        AI_EXTRACT["Extract achievement year<br/>and supporting text from documents"]
-        AI_READY{"Extraction successful<br/>and year unambiguous?"}
-        CHECK_YEARS["Check achievement year against<br/>the configured five-year window<br/>and confirmed AITU employment years"]
-        AI_RESULT["Show separate results for both checks:<br/>Meets / Does not meet / Insufficient information"]
-        MANUAL["Mark document for manual review"]
-
-        VERSION["Save clarification<br/>and preserve previous document versions"]
-        COMPLETE{"All required expert<br/>evaluations completed?"}
-        PENDING["Keep application under review<br/>until remaining evaluations are completed"]
-        SCORE["Calculate official score<br/>from confirmed expert evaluations"]
-        REPORT["Generate individual report<br/>and update nomination ranking"]
+        E_HOME --> E_REVIEW
+        E_REVIEW --> E_ACTION
+        E_ACTION -- "Yes" --> E_REQUEST
+        E_ACTION -- "No" --> E_SCORE
+        E_SCORE --> E_FINISH
     end
 
-    subgraph EXPERT["Expert"]
-        direction TB
-        REVIEW["Review assigned criteria and evidence<br/>and confirm or correct AI findings"]
-        CLARIFY{"Clarification required?"}
-        REQUEST["Request clarification"]
-        EVALUATE["Enter scores within criterion limits<br/>and complete assigned evaluation"]
+    subgraph ADMIN["4. Administrator — Competition Management"]
+        direction LR
+        A_HOME["Administrator dashboard"]
+        A_CONFIG["Configure competition<br/>Nominations, criteria, deadlines<br/>and eligible achievement years"]
+        A_ACCESS["Manage user access<br/>and roles"]
+        A_ASSIGN["View submitted applications<br/>Assign experts and criteria"]
+        A_MONITOR["Monitor evaluation progress<br/>View reports and rankings"]
+        A_PUBLISH["Record the commission decision<br/>and publish results"]
+
+        A_HOME --> A_CONFIG
+        A_HOME --> A_ACCESS
+        A_HOME --> A_ASSIGN
+        A_HOME --> A_MONITOR
+        A_MONITOR --> A_PUBLISH
     end
 
-    subgraph COMMISSION["Competition Commission — Outside the MVP Platform"]
-        direction TB
-        DECISION["Review reports and rankings<br/>and decide competition outcomes"]
+    subgraph SYSTEM["5. Platform — Automatic Processing"]
+        direction LR
+        S_SUBMIT["Check required data and submission deadline<br/>Show validation errors<br/>or register the application"]
+        S_FILES["Store files<br/>and version history"]
+        S_AI["AI extracts the achievement year<br/>and supporting document text"]
+        S_RULES["Check calendar years:<br/>1. Within the configured five-year window<br/>2. Within confirmed AITU employment years"]
+        S_CHECK["Show each check result:<br/>Meets / Does not meet / Insufficient information<br/>If AI fails, use manual review"]
+        S_TOTAL["After all required evaluations are complete:<br/>calculate scores, generate the report<br/>and update the ranking"]
+
+        S_FILES -- "If AI is enabled" --> S_AI
+        S_AI --> S_RULES
+        S_RULES --> S_CHECK
+        S_AI -- "Processing error" --> S_CHECK
     end
 
-    START --> CONFIG
-    CONFIG --> DRAFT
-    DRAFT --> UPLOAD
-    UPLOAD --> SUBMIT
-    SUBMIT --> VALIDATE
-    VALIDATE --> VALID
+    ROLES -- "Faculty role" --> T_HOME
+    ROLES -- "Expert role" --> E_HOME
+    ROLES -- "Administrator role" --> A_HOME
 
-    VALID -- "No" --> CORRECT
-    CORRECT --> SUBMIT
-    VALID -- "Yes" --> STORE
-    STORE --> ASSIGN
-    ASSIGN --> AI_ENABLED
+    T_FILES -. "Documents" .-> S_FILES
+    T_SUBMIT -. "Validate and register" .-> S_SUBMIT
+    S_SUBMIT -. "Status or errors" .-> T_STATUS
+    S_SUBMIT -. "Registered application" .-> A_ASSIGN
 
-    AI_ENABLED -- "Yes" --> AI_EXTRACT
-    AI_ENABLED -- "No" --> MANUAL
-    AI_EXTRACT --> AI_READY
-    AI_READY -- "Yes" --> CHECK_YEARS
-    AI_READY -- "No" --> MANUAL
-    CHECK_YEARS --> AI_RESULT
+    A_ASSIGN -. "Assignment" .-> E_HOME
+    S_CHECK -. "Findings for expert review" .-> E_REVIEW
 
-    AI_RESULT --> REVIEW
-    MANUAL --> REVIEW
-    REVIEW --> CLARIFY
+    E_REQUEST -. "Notification" .-> T_STATUS
+    T_UPDATE -. "New document version" .-> S_FILES
+    T_UPDATE -. "Faculty response" .-> E_REVIEW
 
-    CLARIFY -- "Yes" --> REQUEST
-    REQUEST --> RESPOND
-    RESPOND --> VERSION
-    VERSION --> AI_ENABLED
+    E_FINISH -. "Confirmed evaluations" .-> S_TOTAL
+    S_TOTAL -. "Reports and rankings" .-> A_MONITOR
+    A_PUBLISH -. "Published result" .-> T_RESULT
 
-    CLARIFY -- "No" --> EVALUATE
-    EVALUATE --> COMPLETE
-    COMPLETE -- "No" --> PENDING
-    PENDING -- "Remaining assigned evaluations" --> REVIEW
-    COMPLETE -- "Yes" --> SCORE
+    classDef auth fill:#eef2ff,stroke:#6366f1,color:#1e1b4b;
+    classDef teacher fill:#eff6ff,stroke:#3b82f6,color:#172554;
+    classDef expert fill:#f0fdf4,stroke:#22c55e,color:#14532d;
+    classDef admin fill:#fff7ed,stroke:#f97316,color:#7c2d12;
+    classDef system fill:#f8fafc,stroke:#64748b,color:#0f172a;
+    classDef decision fill:#fef9c3,stroke:#ca8a04,color:#713f12;
 
-    SCORE --> REPORT
-    REPORT --> DECISION
-    DECISION --> PUBLISH
-    PUBLISH --> FINISH
+    class LOGIN,MICROSOFT,ROLES,DENIED auth;
+    class T_HOME,T_FORM,T_FILES,T_SUBMIT,T_STATUS,T_UPDATE,T_RESULT teacher;
+    class E_HOME,E_REVIEW,E_REQUEST,E_SCORE,E_FINISH expert;
+    class A_HOME,A_CONFIG,A_ACCESS,A_ASSIGN,A_MONITOR,A_PUBLISH admin;
+    class S_SUBMIT,S_FILES,S_AI,S_RULES,S_CHECK,S_TOTAL system;
+    class ACCESS,E_ACTION decision;
 
-    classDef event fill:#dbeafe,stroke:#2563eb,stroke-width:2px;
-    classDef gateway fill:#fef3c7,stroke:#d97706,stroke-width:2px;
-    classDef automated fill:#e0f2fe,stroke:#0284c7;
-    classDef human fill:#f0fdf4,stroke:#16a34a;
-
-    class START,FINISH event;
-    class VALID,AI_ENABLED,AI_READY,CLARIFY,COMPLETE gateway;
-    class VALIDATE,STORE,AI_EXTRACT,CHECK_YEARS,AI_RESULT,MANUAL,VERSION,PENDING,SCORE,REPORT automated;
-    class CONFIG,ASSIGN,PUBLISH,DRAFT,UPLOAD,SUBMIT,CORRECT,RESPOND,REVIEW,REQUEST,EVALUATE,DECISION human;
+    style AUTH fill:#fafaff,stroke:#a5b4fc
+    style TEACHER fill:#f8fbff,stroke:#93c5fd
+    style EXPERT fill:#f7fff9,stroke:#86efac
+    style ADMIN fill:#fffbf5,stroke:#fdba74
+    style SYSTEM fill:#f8fafc,stroke:#cbd5e1
