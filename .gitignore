@@ -12,6 +12,23 @@ target/
 *.class
 *.log
 
+# Backend: Maven, Spring Tool Suite and IDE files
+/backend/HELP.md
+/backend/.mvn/wrapper/maven-wrapper.jar
+/backend/.apt_generated/
+/backend/.classpath
+/backend/.factorypath
+/backend/.project
+/backend/.settings/
+/backend/.springBeans
+/backend/.sts4-cache/
+*.iws
+*.ipr
+/backend/nbproject/private/
+/backend/nbbuild/
+/backend/nbdist/
+/backend/.nb-gradle/
+
 # Frontend
 node_modules/
 dist/
@@ -53,3 +70,9 @@ Desktop.ini
 # Temporary files
 *.tmp
 *.bak
+
+# Keep source directories even when named target or build
+!/backend/**/src/main/**/target/
+!/backend/**/src/test/**/target/
+!/backend/**/src/main/**/build/
+!/backend/**/src/test/**/build/
