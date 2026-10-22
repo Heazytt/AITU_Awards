@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router'
 import LanguageSwitcher from './LanguageSwitcher'
 import { useI18n, type Key } from './i18n'
 import { blockMax, nominations, stages } from './criteria'
@@ -24,7 +25,7 @@ function ContestantPreview() {
   return (
     <div className="portal-preview contestant-preview" aria-hidden="true">
       <div className="preview-topbar">
-        <img src="/logo-trophy.png" alt="" className="preview-logo" />
+        <img src={`${import.meta.env.BASE_URL}logo-trophy.png`} alt="" className="preview-logo" />
         <div className="preview-dots"><i /><i /><i /></div>
       </div>
       <div className="preview-body">
@@ -51,7 +52,7 @@ function ExpertPreview() {
   return (
     <div className="portal-preview expert-preview" aria-hidden="true">
       <div className="preview-sidebar">
-        <img src="/logo-trophy.png" alt="" className="preview-logo" />
+        <img src={`${import.meta.env.BASE_URL}logo-trophy.png`} alt="" className="preview-logo" />
         <i className="active" /><i /><i /><i />
       </div>
       <div className="expert-content">
@@ -118,7 +119,7 @@ export default function LandingPage() {
     <main>
       <header className="site-header">
         <a className="site-logo" href="#" aria-label="AITU Teaching Excellence Awards">
-          <img src="/logo-trophy.png" alt="AITU Teaching Excellence Awards" />
+          <img src={`${import.meta.env.BASE_URL}logo-trophy.png`} alt="AITU Teaching Excellence Awards" />
         </a>
         <nav className={menuOpen ? 'main-nav is-open' : 'main-nav'} aria-label="Primary navigation">
           <div className="nav-links">
@@ -128,7 +129,7 @@ export default function LandingPage() {
           </div>
           <div className="nav-tools">
             <LanguageSwitcher />
-            <a href="/login" className="login-button">{t('login')}</a>
+            <Link to="/login" className="login-button">{t('login')}</Link>
           </div>
         </nav>
         <button
@@ -148,7 +149,7 @@ export default function LandingPage() {
           <div className="eyebrow"><span /> {t('eyebrow')}</div>
           <h1>AITU TEACHING<br /><span>EXCELLENCE</span> AWARDS</h1>
           <div className="hero-actions">
-            <a className="button button-primary" href="/login">{t('apply')} <ArrowIcon /></a>
+            <Link className="button button-primary" to="/login">{t('apply')} <ArrowIcon /></Link>
             <a className="button button-secondary" href="#nominations">{t('viewCriteria')}</a>
           </div>
         </div>
@@ -243,7 +244,7 @@ export default function LandingPage() {
                 <span className="card-number">{portal.number}</span>
                 <h3>{portal.title}</h3>
                 <p>{portal.description}</p>
-                <a href={portal.href} className="card-link">{portal.action} <ArrowIcon /></a>
+                <Link to={portal.href} className="card-link">{portal.action} <ArrowIcon /></Link>
               </div>
             </article>
           ))}
@@ -251,7 +252,7 @@ export default function LandingPage() {
       </section>
 
       <footer id="contacts">
-        <a className="footer-logo" href="#"><img src="/logo-trophy.png" alt="AITU Awards" /></a>
+        <a className="footer-logo" href="#"><img src={`${import.meta.env.BASE_URL}logo-trophy.png`} alt="AITU Awards" /></a>
         <p>{t('footerText')}</p>
         <span>{t('footerRights')} · <a href="mailto:awards@aitu.edu.kz">awards@aitu.edu.kz</a></span>
       </footer>

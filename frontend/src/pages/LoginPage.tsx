@@ -68,7 +68,7 @@ export default function LoginPage() {
     <div className="login-page">
       <header className="login-header">
         <Link to="/" aria-label="AITU Teaching Excellence Awards">
-          <img src="/logo-trophy.png" alt="AITU Teaching Excellence Awards" />
+          <img src={`${import.meta.env.BASE_URL}logo-trophy.png`} alt="AITU Teaching Excellence Awards" />
         </Link>
         <LanguageSwitcher />
       </header>

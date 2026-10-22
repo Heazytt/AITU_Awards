@@ -72,7 +72,7 @@ function WorkspaceHeader({ name, role, nav }: { name: string; role: string; nav?
   return (
     <header className="workspace-header">
       <Link className="workspace-brand" to="/" aria-label="AITU Teaching Excellence Awards">
-        <img className="workspace-logo" src="/logo-trophy.png" alt="AITU Teaching Excellence Awards" />
+        <img className="workspace-logo" src={`${import.meta.env.BASE_URL}logo-trophy.png`} alt="AITU Teaching Excellence Awards" />
       </Link>
       {nav}
       <div className="workspace-header-actions">

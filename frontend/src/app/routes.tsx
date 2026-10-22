@@ -7,11 +7,16 @@ import {
   ExpertReviewWorkspace,
 } from '../pages/WorkspacePages'
 
-export const router = createBrowserRouter([
-  { path: '/', Component: LandingPage },
-  { path: '/login', Component: LoginPage },
-  { path: '/contestant', Component: ContestantWorkspace },
-  { path: '/expert-review', Component: ExpertReviewWorkspace },
-  { path: '/administrator', Component: AdministratorWorkspace },
-  { path: '*', Component: LandingPage },
-])
+const basename = import.meta.env.BASE_URL.replace(/\/$/, '') || '/'
+
+export const router = createBrowserRouter(
+  [
+    { path: '/', Component: LandingPage },
+    { path: '/login', Component: LoginPage },
+    { path: '/contestant', Component: ContestantWorkspace },
+    { path: '/expert-review', Component: ExpertReviewWorkspace },
+    { path: '/administrator', Component: AdministratorWorkspace },
+    { path: '*', Component: LandingPage },
+  ],
+  { basename },
+)
