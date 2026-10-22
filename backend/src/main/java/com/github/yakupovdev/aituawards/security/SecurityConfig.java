@@ -22,6 +22,7 @@ public class SecurityConfig {
         http
                 // TODO: Re-enable CSRF when connecting the frontend to session authentication.
                 .csrf(AbstractHttpConfigurer::disable)
+                .cors(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
                                 "/swagger-ui/**",
