@@ -1,0 +1,179 @@
+erDiagram
+
+    USER {
+        uuid user_id PK
+        string corporate_subject_id UK
+        string full_name
+        string email UK
+    }
+
+    COMPETITION {
+        uuid competition_id PK
+        string title
+        int competition_year
+        datetime submission_deadline
+        datetime evaluation_deadline
+        string status
+    }
+
+    USER_ROLE {
+        uuid user_role_id PK
+        uuid user_id FK
+        uuid competition_id FK
+        string role_code
+    }
+
+    NOMINATION {
+        uuid nomination_id PK
+        uuid competition_id FK
+        string title
+        string description
+    }
+
+    RULE_SET {
+        uuid rule_set_id PK
+        uuid competition_id FK
+        int version_number
+        int eligible_start_year
+        int eligible_end_year
+        int block_1_max_score
+        int block_2_max_score
+        int block_3_max_score
+        datetime published_at
+    }
+
+    CRITERION {
+        uuid criterion_id PK
+        uuid rule_set_id FK
+        uuid nomination_id FK
+        string block_code
+        string title
+        decimal max_score
+        boolean evidence_required
+    }
+
+    APPLICATION {
+        uuid application_id PK
+        uuid applicant_id FK
+        uuid competition_id FK
+        uuid nomination_id FK
+        uuid rule_set_id FK
+        string status
+        datetime submitted_at
+    }
+
+    EMPLOYMENT_PERIOD {
+        uuid employment_period_id PK
+        uuid user_id FK
+        uuid confirmed_by_user_id FK
+        int start_year
+        int end_year
+        string verification_source
+        datetime confirmed_at
+    }
+
+    EVIDENCE {
+        uuid evidence_id PK
+        uuid application_id FK
+        uuid criterion_id FK
+        string title
+    }
+
+    EVIDENCE_VERSION {
+        uuid evidence_version_id PK
+        uuid evidence_id FK
+        uuid uploaded_by_user_id FK
+        int version_number
+        string storage_key
+        string original_filename
+        string file_hash
+        string language_code
+        datetime uploaded_at
+    }
+
+    EXPERT_ASSIGNMENT {
+        uuid assignment_id PK
+        uuid application_id FK
+        uuid criterion_id FK
+        uuid expert_id FK
+        datetime deadline
+        string status
+    }
+
+    EVALUATION {
+        uuid evaluation_id PK
+        uuid assignment_id FK
+        int revision_number
+        decimal score
+        string justification
+        string status
+        boolean is_current
+        datetime completed_at
+    }
+
+    AI_CHECK {
+        uuid ai_check_id PK
+        uuid evidence_version_id FK
+        uuid criterion_id FK
+        string processing_status
+        int extracted_achievement_year
+        string source_excerpt
+        int source_page
+        string time_window_result
+        string employment_period_result
+        string model_version
+        datetime completed_at
+    }
+
+    COMMISSION_DECISION {
+        uuid decision_id PK
+        uuid application_id FK
+        uuid recorded_by_user_id FK
+        string outcome
+        string rationale
+        string meeting_record_reference
+        datetime decided_at
+    }
+
+    AUDIT_LOG {
+        uuid audit_log_id PK
+        uuid actor_user_id FK
+        string action
+        string entity_type
+        uuid entity_id
+        datetime occurred_at
+    }
+
+    USER ||--o{ USER_ROLE : имеет
+    COMPETITION ||--o{ USER_ROLE : определяет_область_роли
+
+    COMPETITION ||--o{ NOMINATION : содержит
+    COMPETITION ||--o{ RULE_SET : имеет
+    RULE_SET ||--o{ CRITERION : определяет
+    NOMINATION ||--o{ CRITERION : использует
+
+    USER ||--o{ APPLICATION : подаёт
+    COMPETITION ||--o{ APPLICATION : получает
+    NOMINATION ||--o{ APPLICATION : объединяет
+    RULE_SET ||--o{ APPLICATION : применяется_к
+
+    USER ||--o{ EMPLOYMENT_PERIOD : имеет
+    USER ||--o{ EMPLOYMENT_PERIOD : подтверждает
+
+    APPLICATION ||--o{ EVIDENCE : содержит
+    CRITERION ||--o{ EVIDENCE : подтверждается
+    EVIDENCE ||--|{ EVIDENCE_VERSION : имеет_версии
+    USER ||--o{ EVIDENCE_VERSION : загружает
+
+    APPLICATION ||--o{ EXPERT_ASSIGNMENT : проверяется_через
+    CRITERION ||--o{ EXPERT_ASSIGNMENT : задаёт_область_проверки
+    USER ||--o{ EXPERT_ASSIGNMENT : назначается_экспертом
+    EXPERT_ASSIGNMENT ||--o{ EVALUATION : имеет_ревизии
+
+    EVIDENCE_VERSION ||--o{ AI_CHECK : проходит_проверку
+    CRITERION ||--o{ AI_CHECK : задаёт_контекст_правил
+
+    APPLICATION ||--o{ COMMISSION_DECISION : получает
+    USER ||--o{ COMMISSION_DECISION : вносит
+
+    USER o|--o{ AUDIT_LOG : совершает_действие
