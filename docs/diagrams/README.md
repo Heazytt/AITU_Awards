@@ -4,16 +4,16 @@ All diagram labels in this directory are in English. Matching Russian versions a
 
 ## Available diagrams
 
-- [Role-based application flow](bpmn/application-process.mmd) — Microsoft sign-in, faculty, expert, administrator, and automatic processing layers.
-- [Database ERD](erd/database.mmd) — initial logical model for users, competitions, applications, evidence versions, expert evaluations, and AI checks.
+- [Role-based application flow](bpmn/application-process.mmd) - Microsoft sign-in, faculty, expert, administrator, and automatic processing layers.
+- [Database ERD](erd/database.mmd) - initial logical model for users, competitions, applications, evidence versions, expert evaluations, and AI checks.
 
 ## Directory conventions
 
-- bpmn/ — process diagrams. The current Mermaid flowchart is a role-based user flow, not a formal BPMN 2.0 model. Store formal editor-generated BPMN models as .bpmn files.
-- erd/ — entity relationship diagrams.
-- uml/ — use case, component, and sequence diagrams to be added later.
-- context/ — system context diagrams to be added later.
-- exports/ — SVG and PNG files for presentations.
+- bpmn/ - process diagrams. The current Mermaid flowchart is a role-based user flow, not a formal BPMN 2.0 model. Store formal editor-generated BPMN models as .bpmn files.
+- erd/ - entity relationship diagrams.
+- uml/ - use case, component, and sequence diagrams to be added later.
+- context/ - system context diagrams to be added later.
+- exports/ - SVG and PNG files for presentations.
 
 Save Mermaid code in .mmd files without Markdown code fences. Use matching base names for source and exported files, for example erd/database.mmd and exports/database.svg.
 

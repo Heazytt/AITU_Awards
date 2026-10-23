@@ -4,13 +4,13 @@ A platform for AITU faculty applications, supporting-document checks, and expert
 
 ## Repository structure
 
-- [backend/](backend/) — Java + Spring Boot backend.
-- [frontend/](frontend/) — web interface; the frontend developer will select the technology stack later.
-- [ai-service/](ai-service/) — Python + FastAPI document analysis service.
-- [docs/](docs/) — English requirements, diagrams, research, UX, testing, and presentation materials.
-- [docs-for-us/](docs-for-us/) — Russian documentation and diagram translations for the team.
-- [infra/](infra/) — deployment and infrastructure configuration.
-- [.github/workflows/](.github/workflows/) — future automated builds and checks.
+- [backend/](backend/) - Java + Spring Boot backend.
+- [frontend/](frontend/) - web interface; the frontend developer will select the technology stack later.
+- [ai-service/](ai-service/) - Python + FastAPI document analysis service.
+- [docs/](docs/) - English requirements, diagrams, research, UX, testing, and presentation materials.
+- [docs-for-us/](docs-for-us/) - Russian documentation and diagram translations for the team.
+- [infra/](infra/) - deployment and infrastructure configuration.
+- [.github/workflows/](.github/workflows/) - future automated builds and checks.
 
 Database: PostgreSQL. Authentication: corporate AITU Microsoft accounts through Microsoft Entra ID.
 

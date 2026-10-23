@@ -15,7 +15,7 @@ flowchart TB
         DENIED --> LOGIN
     end
 
-    subgraph TEACHER["2. Faculty Member — My Applications"]
+    subgraph TEACHER["2. Faculty Member - My Applications"]
         direction LR
         T_HOME["Dashboard<br/>Available competitions and my applications"]
         T_FORM["Create or edit a draft<br/>Select a nomination and enter details"]
@@ -33,7 +33,7 @@ flowchart TB
         T_STATUS -- "Results published" --> T_RESULT
     end
 
-    subgraph EXPERT["3. Expert — Assigned Applications"]
+    subgraph EXPERT["3. Expert - Assigned Applications"]
         direction LR
         E_HOME["Dashboard<br/>Assigned applications and deadlines"]
         E_REVIEW["Open application<br/>Review assigned criteria,<br/>documents and AI findings"]
@@ -49,7 +49,7 @@ flowchart TB
         E_SCORE --> E_FINISH
     end
 
-    subgraph ADMIN["4. Administrator — Competition Management"]
+    subgraph ADMIN["4. Administrator - Competition Management"]
         direction LR
         A_HOME["Administrator dashboard"]
         A_CONFIG["Configure competition<br/>Nominations, criteria, deadlines<br/>and eligible achievement years"]
@@ -65,7 +65,7 @@ flowchart TB
         A_MONITOR --> A_PUBLISH
     end
 
-    subgraph SYSTEM["5. Platform — Automatic Processing"]
+    subgraph SYSTEM["5. Platform - Automatic Processing"]
         direction LR
         S_SUBMIT["Check required data and submission deadline<br/>Show validation errors<br/>or register the application"]
         S_FILES["Store files<br/>and version history"]

@@ -212,7 +212,7 @@ export default function LandingPage() {
               <i />
               <small>0{index + 1}</small>
               <b>{t(stage.key as Key)}</b>
-              <span>{stage.from === stage.to ? date(stage.from) : `${date(stage.from)} — ${date(stage.to)}`}</span>
+              <span>{stage.from === stage.to ? date(stage.from) : `${date(stage.from)} - ${date(stage.to)}`}</span>
             </li>
           ))}
         </ol>

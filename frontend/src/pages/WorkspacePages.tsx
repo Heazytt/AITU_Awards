@@ -654,7 +654,7 @@ export function AdministratorWorkspace() {
 
   const audit = [
     { icon: 'check' as IconName, title: t('auditEligibility'), text: 'Amina Kassenova · AITU-260127', time: t('minAgo', { n: 12 }), oldValue: statusLabel.check[lang], newValue: statusLabel.admitted[lang], reason: '' },
-    { icon: 'users' as IconName, title: t('auditAssigned'), text: 'Dr. Sarah Mitchell · AITU-260128 · II', time: t('minAgo', { n: 48 }), oldValue: '—', newValue: t('blockLine', { n: 2 }), reason: '' },
+    { icon: 'users' as IconName, title: t('auditAssigned'), text: 'Dr. Sarah Mitchell · AITU-260128 · II', time: t('minAgo', { n: 48 }), oldValue: '-', newValue: t('blockLine', { n: 2 }), reason: '' },
     { icon: 'shield' as IconName, title: t('auditReopened'), text: 'Amina Kassenova · AITU-260127 · II.2', time: t('hourAgo', { n: 1 }), oldValue: '24 / 30', newValue: '26 / 30', reason: t('auditReopenReason') },
     { icon: 'document' as IconName, title: t('auditFile'), text: 'AITU-260128 · study_guide_data_science_2023.pdf', time: t('hourAgo', { n: 2 }), oldValue: 'v1', newValue: 'v2', reason: '' },
     { icon: 'clock' as IconName, title: t('auditReminder'), text: 'AITU-260126', time: t('yesterday'), oldValue: '', newValue: '', reason: '' },
@@ -807,7 +807,7 @@ export function AdministratorWorkspace() {
         </div>
         <ol className="stage-list">
           {stages.map((stage, index) => (
-            <li key={stage.key}><small>0{index + 1}</small><strong>{t(stage.key as Key)}</strong><span>{stage.from === stage.to ? date(stage.from) : `${date(stage.from)} — ${date(stage.to)}`}</span></li>
+            <li key={stage.key}><small>0{index + 1}</small><strong>{t(stage.key as Key)}</strong><span>{stage.from === stage.to ? date(stage.from) : `${date(stage.from)} - ${date(stage.to)}`}</span></li>
           ))}
         </ol>
       </section>

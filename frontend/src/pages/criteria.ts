@@ -150,7 +150,7 @@ export type Applicant = {
 export const applicants: Applicant[] = [
   { id: 'AITU-260128', name: 'Gulnaz Yeskermes', school: 'Software Engineering', nomination: 'professor', status: 'review', completion: 82, scores: [31, 42, 8], expert: 'Dr. Sarah Mitchell', updated: '2026-11-14T10:24' },
   { id: 'AITU-260127', name: 'Aigerim Sarsembayeva', school: 'General Education', nomination: 'practice', status: 'reviewDone', completion: 100, scores: [29, 38, 7], expert: 'Dr. Sarah Mitchell', updated: '2026-11-13T11:24' },
-  { id: 'AITU-260126', name: 'Daniyar Akhmetov', school: 'Cybersecurity', nomination: 'young', status: 'returned', completion: 64, scores: [18, 20, 4], expert: '—', updated: '2026-11-12T12:24' },
+  { id: 'AITU-260126', name: 'Daniyar Akhmetov', school: 'Cybersecurity', nomination: 'young', status: 'returned', completion: 64, scores: [18, 20, 4], expert: '-', updated: '2026-11-12T12:24' },
   { id: 'AITU-260125', name: 'Mariya Kim', school: 'Business & Management', nomination: 'practice', status: 'reviewDone', completion: 100, scores: [33, 40, 9], expert: 'Prof. Aidos Bekov', updated: '2026-11-11T13:24' },
   { id: 'AITU-260124', name: 'Timur Nurgaliyev', school: 'Software Engineering', nomination: 'young', status: 'clarification', completion: 94, scores: [24, 27, 6], expert: 'Dr. Sarah Mitchell', updated: '2026-11-10T14:24' },
   { id: 'AITU-260123', name: 'Alua Serikova', school: 'Computational Sciences', nomination: 'professor', status: 'reviewDone', completion: 100, scores: [35, 44, 9], expert: 'Prof. Aidos Bekov', updated: '2026-11-09T09:12' },
