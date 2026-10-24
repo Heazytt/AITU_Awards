@@ -99,9 +99,16 @@ function AdminPreview() {
   )
 }
 
+const heroTitle = {
+  en: ['AITU TEACHING', 'EXCELLENCE', 'AWARDS'],
+  ru: ['НАГРАДЫ AITU', 'ЗА МАСТЕРСТВО', 'ПРЕПОДАВАНИЯ'],
+  kk: ['AITU ОҚЫТУ', 'ШЕБЕРЛІГІ', 'МАРАПАТТАРЫ'],
+} as const
+
 export default function LandingPage() {
   const [menuOpen, setMenuOpen] = useState(false)
   const { t, lang, date } = useI18n()
+  const title = heroTitle[lang as keyof typeof heroTitle] ?? heroTitle.en
 
   const portals = [
     { number: '01', title: t('portalContestant'), description: t('portalContestantText'), action: t('enterContestant'), href: '/contestant', preview: <ContestantPreview /> },
@@ -147,7 +154,7 @@ export default function LandingPage() {
         <div className="hero-grid" />
         <div className="hero-content">
           <div className="eyebrow"><span /> {t('eyebrow')}</div>
-          <h1>AITU TEACHING<br /><span>EXCELLENCE</span> AWARDS</h1>
+          <h1>{title[0]}<br /><span>{title[1]}</span> {title[2]}</h1>
           <div className="hero-actions">
             <Link className="button button-primary" to="/login">{t('apply')} <ArrowIcon /></Link>
             <a className="button button-secondary" href="#nominations">{t('viewCriteria')}</a>
