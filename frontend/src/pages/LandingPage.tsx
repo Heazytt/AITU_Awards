@@ -101,7 +101,7 @@ function AdminPreview() {
 
 const heroTitle = {
   en: ['AITU TEACHING', 'EXCELLENCE', 'AWARDS'],
-  ru: ['НАГРАДЫ AITU', 'ЗА МАСТЕРСТВО', 'ПРЕПОДАВАНИЯ'],
+  ru: ['Лучший', 'преподаватель', 'Astana IT University '],
   kk: ['AITU ОҚЫТУ', 'ШЕБЕРЛІГІ', 'МАРАПАТТАРЫ'],
 } as const
 
