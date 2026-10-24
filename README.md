@@ -1,15 +1,15 @@
 <a name="aitu-teaching-excellence-awards"></a>
 <h1 align="center">AITU Teaching Excellence Awards Management System</h1>
 
-**[Open Live Demo →](https://heazytt.github.io/AITU_Awards/)** · **[YouTrack — Project Tasks →](https://aitu-awards.youtrack.cloud)**
+**[Open Live Demo →](https://heazytt.github.io/AITU_Awards/)** · **[YouTrack - Project Tasks →](https://aitu-awards.youtrack.cloud)**
 
 **Diploma Project:** Development of a Web Platform for Conducting the “Best University Teacher” Competition with Automated Document Verification and Decision Support.
 
 **Team**
 
-- **Vyacheslav Yakupov, SE-2403** — Java/Spring Boot backend, business logic, REST API, database, and backend testing.
-- **Marlen Zhumagulov, SE-2424** — AI document analysis using Python/FastAPI, evaluation of verification methods, integration, and deployment.
-- **Gulnaz Yeskermes, SE-2425** — frontend development, UX, user scenarios, and interface testing.
+- **Vyacheslav Yakupov, SE-2403** - Java/Spring Boot backend, business logic, REST API, database, and backend testing.
+- **Marlen Zhumagulov, SE-2424** - AI document analysis using Python/FastAPI, evaluation of verification methods, integration, and deployment.
+- **Gulnaz Yeskermes, SE-2425** - frontend development, UX, user scenarios, and interface testing.
 
 **Supervisor:** Yersultan Tulebayev, Senior Lecturer, School of Software Engineering.
 
