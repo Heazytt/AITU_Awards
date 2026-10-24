@@ -3,7 +3,7 @@
 
 **[Open Live Demo →](https://heazytt.github.io/AITU_Awards/)** · **[YouTrack — Project Tasks →](https://aitu-awards.youtrack.cloud)**
 
-**Diploma Project:** A web platform for managing the Best Teacher of Astana IT University competition, with automated verification of supporting documents and assistance for expert evaluation.
+**Diploma Project:** Development of a Web Platform for Conducting the “Best University Teacher” Competition with Automated Document Verification and Decision Support.
 
 **Team**
 
