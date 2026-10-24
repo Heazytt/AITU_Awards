@@ -71,8 +71,8 @@ function WorkspaceHeader({ name, role, nav }: { name: string; role: string; nav?
   const { t } = useI18n()
   return (
     <header className="workspace-header">
-      <Link className="workspace-brand" to="/" aria-label="AITU Teaching Excellence Awards">
-        <img className="workspace-logo" src={`${import.meta.env.BASE_URL}logo-trophy.png`} alt="AITU Teaching Excellence Awards" />
+      <Link className="workspace-brand" to="/" aria-label={t('navLogoAria')}>
+        <img className="workspace-logo" src={`${import.meta.env.BASE_URL}logo-trophy.png`} alt={t('logoAlt')} />
       </Link>
       {nav}
       <div className="workspace-header-actions">

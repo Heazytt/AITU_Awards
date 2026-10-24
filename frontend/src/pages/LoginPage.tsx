@@ -54,7 +54,7 @@ function GoogleIcon() {
 }
 
 export default function LoginPage() {
-  const { lang } = useI18n()
+  const { lang, t } = useI18n()
   const navigate = useNavigate()
   const [params] = useSearchParams()
   const copy = text[lang as keyof typeof text] ?? text.en
@@ -67,8 +67,8 @@ export default function LoginPage() {
   return (
     <div className="login-page">
       <header className="login-header">
-        <Link to="/" aria-label="AITU Teaching Excellence Awards">
-          <img src={`${import.meta.env.BASE_URL}logo-trophy.png`} alt="AITU Teaching Excellence Awards" />
+        <Link to="/" aria-label={t('navLogoAria')}>
+          <img src={`${import.meta.env.BASE_URL}logo-trophy.png`} alt={t('logoAlt')} />
         </Link>
         <LanguageSwitcher />
       </header>

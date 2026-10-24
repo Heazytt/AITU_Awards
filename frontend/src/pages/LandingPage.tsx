@@ -118,8 +118,8 @@ export default function LandingPage() {
   return (
     <main>
       <header className="site-header">
-        <a className="site-logo" href="#" aria-label="AITU Teaching Excellence Awards">
-          <img src={`${import.meta.env.BASE_URL}logo-trophy.png`} alt="AITU Teaching Excellence Awards" />
+        <a className="site-logo" href="#" aria-label={t('navLogoAria')}>
+          <img src={`${import.meta.env.BASE_URL}logo-trophy.png`} alt={t('logoAlt')} />
         </a>
         <nav className={menuOpen ? 'main-nav is-open' : 'main-nav'} aria-label="Primary navigation">
           <div className="nav-links">
@@ -252,7 +252,7 @@ export default function LandingPage() {
       </section>
 
       <footer id="contacts">
-        <a className="footer-logo" href="#"><img src={`${import.meta.env.BASE_URL}logo-trophy.png`} alt="AITU Awards" /></a>
+        <a className="footer-logo" href="#"><img src={`${import.meta.env.BASE_URL}logo-trophy.png`} alt={t('logoAlt')} /></a>
         <p>{t('footerText')}</p>
         <span>{t('footerRights')} · <a href="mailto:awards@aitu.edu.kz">awards@aitu.edu.kz</a></span>
       </footer>
