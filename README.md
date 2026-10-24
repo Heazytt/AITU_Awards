@@ -1,7 +1,7 @@
 <a name="aitu-teaching-excellence-awards"></a>
 <h1 align="center">AITU Teaching Excellence Awards Management System</h1>
 
-**[YouTrack — Project Tasks →](https://aitu-awards.youtrack.cloud)** · **[Frontend Prototype →](frontend/)**
+**[Open Live Demo →](https://heazytt.github.io/AITU_Awards/)** · **[YouTrack — Project Tasks →](https://aitu-awards.youtrack.cloud)**
 
 **Diploma Project:** A web platform for managing the Best Teacher of Astana IT University competition, with automated verification of supporting documents and assistance for expert evaluation.
 
@@ -99,7 +99,9 @@ The second phase includes verifier and commission portals, appeals, Student Choi
 
 <h3 align="center">Frontend Prototype</h3>
 
-Use **Node.js 22.12 or later** and npm. The deployment workflow uses Node.js 22. From the repository root:
+**No local frontend setup is required to explore the prototype.** All current frontend screens are available on **[GitHub Pages](https://heazytt.github.io/AITU_Awards/)**.
+
+For local development, use **Node.js 22.12 or later** and npm. The deployment workflow uses Node.js 22. From the repository root:
 
 ```sh
 cd frontend
@@ -198,15 +200,15 @@ The current GitHub Actions workflow builds the frontend and deploys it to GitHub
 <a name="application-prototype"></a>
 <h2 align="center">Application Prototype</h2>
 
-Run the frontend locally to explore the role-specific screens:
+Open the **[live prototype on GitHub Pages](https://heazytt.github.io/AITU_Awards/)** to explore all current frontend screens without installing dependencies or running the frontend locally:
 
-| Screen | Local route | Purpose |
+| Screen | Live route | Purpose |
 | --- | --- | --- |
-| Landing page | [Home](http://localhost:3000/) | Competition overview, nominations, criteria, and stages |
-| Sign-in | [Login](http://localhost:3000/login) | Demonstration entry to the interface |
-| Faculty portal | [Contestant](http://localhost:3000/contestant) | Nomination, claimed scores, evidence metadata, completeness, and submission |
-| Expert portal | [Expert Review](http://localhost:3000/expert-review) | Assigned applications, criterion decisions, comments, and evaluation progress |
-| Administrator portal | [Administrator](http://localhost:3000/administrator) | Application register, filters, progress, and rankings |
+| Landing page | [Home](https://heazytt.github.io/AITU_Awards/) | Competition overview, nominations, criteria, and stages |
+| Sign-in | [Login](https://heazytt.github.io/AITU_Awards/login) | Demonstration entry to the interface |
+| Faculty portal | [Contestant](https://heazytt.github.io/AITU_Awards/contestant) | Nomination, claimed scores, evidence metadata, completeness, and submission |
+| Expert portal | [Expert Review](https://heazytt.github.io/AITU_Awards/expert-review) | Assigned applications, criterion decisions, comments, and evaluation progress |
+| Administrator portal | [Administrator](https://heazytt.github.io/AITU_Awards/administrator) | Application register, filters, progress, and rankings |
 
 These routes use sample data and can be opened directly. They demonstrate the intended experience; actual authentication, authorised document access, shared state, and report generation still require integration. Sample names, dates, scores, and statuses are demonstration values.
 
